@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PublicEye</string>
+    <string name="action_settings">Contact</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="hidden_data_directory">.data</string>
+
+</resources>
