@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.publiceye.android.R;
 import com.publiceye.android.model.Complaint;
@@ -52,16 +54,27 @@ public class ComplaintListAdapter extends ArrayAdapter<Complaint> {
 		View view = convertView;
 		if (view == null)
 
-			view = inflater.inflate(R.layout.item_complaints_list, null);
+		view = inflater.inflate(R.layout.item_complaints_list, null);
 		Complaint complaint = list.get(position);
-		ImageView imageView = (ImageView) view.findViewById(R.id.img_subject);
+		ImageView imageViewStatus = (ImageView) view.findViewById(R.id.image_status);
+		ImageView imageViewNav = (ImageView) view.findViewById(R.id.img_nav);
+		ImageView imageViewSubject = (ImageView) view.findViewById(R.id.img_subject);
 		try {
-			imageView
-					.setImageBitmap(getPhotoSearchImage(complaint.getImgpath()));
+			imageViewSubject.setImageBitmap(getPhotoSearchImage(complaint.getImgpath()));
 
 		} catch (Exception e) {
 			Log.e("Image Loading Exception", ""+e.getMessage());
 		}
+		TextView textView_regdno = (TextView) view.findViewById(R.id.regd_no);
+		TextView textView_complntype = (TextView) view.findViewById(R.id.comp_type);
+		TextView textView_complremarks = (TextView) view.findViewById(R.id.comp_remark);
+		TextView textView_time = (TextView) view.findViewById(R.id.date_time);
+		
+		textView_regdno.setText(complaint.getVehregNo());
+		textView_complntype.setText(complaint.getComplientType());
+		textView_time.setText(complaint.getTimeStamp());
+		
+		
 		return view;
 	}
 

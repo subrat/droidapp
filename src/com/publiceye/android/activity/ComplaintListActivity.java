@@ -31,7 +31,7 @@ public class ComplaintListActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_complaintdetails);
-		listViewComplaints = (ListView) findViewById(R.id.list_complaint);
+		listViewComplaints = (ListView) findViewById(android.R.id.list);
 		mEyeButton = (Button) findViewById(R.id.btn_eye);
 		ComplaintsDataBase complaintsDataBase=ComplaintsDataBase.getComplaintsDataBase(getApplicationContext());
 		complaintsDataBase.openDB();
@@ -45,6 +45,8 @@ public class ComplaintListActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+//				startActivity(new Intent(ComplaintListActivity.this,NewComplaintActivity.class));
+				
 				try {
 					if(AppUtil.isSdCardAvailable()){
 						file = new File(AppUtil.getAppDataDirectoryPath(),

@@ -5,5 +5,29 @@
     <string name="action_settings">Contact</string>
     <string name="hello_world">Hello world!</string>
     <string name="hidden_data_directory">.data</string>
+    <string name="text_nodata">There is no data. Press below button to add Complaints</string>
+
+    <string-array name="vechtype_array">
+        <item>Two wheeler</item>
+        <item>Three wheeler</item>
+        <item>Four wheeler</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="compltype_array">
+        <item>DEFECTIVE NUMBER PLATE</item>
+        <item>NO PARKING</item>
+        <item>NOT WEARING SEAT BELT</item>
+        <item>ONEWAY/NOENTRY</item>
+        <item>PARKING ON FOOTPATH</item>
+        <item>RIDING ON FOOTPATH</item>
+        <item>RIDING WITHOUT A HELMET</item>
+        <item>STOPPED ON ZEBRA CROSS/ NEAR TRF LIGHT</item>
+        <item>TAKING A U-TURN WHERE U-TURN IS PROHIBITED</item>
+        <item>TRIPLE RIDING</item>
+        <item>USING MOBILE PHONE</item>
+        <item>VIOLATING LANE DISCIPLINE</item>
+        <item>WRONG PARKING</item>
+        <item>OTHERS</item>
+    </string-array>
 
 </resources>

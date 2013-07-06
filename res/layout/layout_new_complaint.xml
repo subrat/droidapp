@@ -42,12 +42,22 @@
                     android:layout_margin="5dp" />
 
                 <TextView
-                    android:id="@+id/text_loc"
+                    android:id="@+id/text_loc_lat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignRight="@+id/text_comp_status"
+                    android:text="lat" />
+
+                <TextView
+                    android:id="@+id/text_loc_lang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignRight="@+id/text_comp_status"
+                    android:layout_below="@id/text_loc_lat"
+                    android:layout_marginTop="20dp"
                     android:layout_centerVertical="true"
-                    android:text="location" />
+                    android:text="lng" />
 
                 <TextView
                     android:id="@+id/text_timestamp"
@@ -96,13 +106,11 @@
                         android:layout_height="wrap_content"
                         android:text="Vehicle Type:" />
 
-                    <EditText
-                        android:id="@+id/editText_vehType"
-                        android:layout_width="wrap_content"
+                    <Spinner
+                        android:id="@+id/text_vehType"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10" >
-                    </EditText>
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -115,13 +123,11 @@
                         android:layout_height="wrap_content"
                         android:text="Complaint Type:" />
 
-                    <EditText
-                        android:id="@+id/editText_compType"
-                        android:layout_width="wrap_content"
+                    <Spinner
+                        android:id="@+id/text_compType"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10" >
-                    </EditText>
+                        android:layout_weight="1" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -140,9 +146,8 @@
                 <EditText
                     android:id="@+id/editText_remark"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@drawable/et_input_normal"
-                    android:inputType="textFilter" />
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/et_input_normal" />
             </LinearLayout>
 
             <LinearLayout

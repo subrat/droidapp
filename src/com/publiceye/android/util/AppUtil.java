@@ -11,6 +11,7 @@ import com.publiceye.android.location.AppLocationManager;
 public class AppUtil {
 
 	private static AppLocationManager appLocationManager;
+	private static int count = 1;
 	/**
 	 * To check SD card Availability
 	 * 
@@ -56,6 +57,16 @@ public class AppUtil {
 	public static String getTimeStamp() {
 
 		return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date());
+	}
+	
+	/**
+	 * Complaint No
+	 * @return
+	 */
+	
+	public static String getComplaintNo() {
+		String compNo = new SimpleDateFormat("ddMMyyyy").format(new Date())+ count++;
+		return compNo;
 	}
 
 	
