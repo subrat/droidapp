@@ -31,6 +31,10 @@ public class ComplaintListActivity extends Activity {
 	File file = null;
 	private ComplaintListAdapter complaintListAdapter;
 	private AppLocationManager appLocationManager;
+	private List<Complaint> complaints;
+	private ComplaintsDataBase complaintsDataBase;
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,20 +43,7 @@ public class ComplaintListActivity extends Activity {
 		listViewComplaints = (ListView) findViewById(android.R.id.list);
 		mEyeButton = (Button) findViewById(R.id.btn_eye);
 		listViewComplaints.setEmptyView(textViewNodata);
-		ComplaintsDataBase complaintsDataBase=ComplaintsDataBase.getComplaintsDataBase(getApplicationContext());
-		complaintsDataBase.openDB();
-		List<Complaint> complaints= complaintsDataBase.getComplaintList();
-		complaintsDataBase.closeDB();
-		complaintListAdapter=new ComplaintListAdapter(getApplicationContext(),0, complaints);
 		
-		/*if(complaintListAdapter.getCount() != 0){
-			textViewNodata.setVisibility(View.INVISIBLE);
-			listViewComplaints.setVisibility(View.VISIBLE);
-		}else {
-			textViewNodata.setVisibility(View.VISIBLE);
-			listViewComplaints.setVisibility(View.INVISIBLE);
-		}*/
-		listViewComplaints.setAdapter(complaintListAdapter);
 		appLocationManager=AppUtil.getAppLocationManager();
 
 		mEyeButton.setOnClickListener(new OnClickListener() {
@@ -105,13 +96,15 @@ public class ComplaintListActivity extends Activity {
 			}
 		}
 	}
-
+	
 	@Override
-	protected void onRestart() {
-		super.onRestart();
-		if(complaintListAdapter!=null){
-			complaintListAdapter.notifyDataSetChanged();
-		}
+	protected void onStart() {
+		super.onStart();
+		complaintsDataBase=ComplaintsDataBase.getComplaintsDataBase(getApplicationContext());
+		complaintsDataBase.openDB();
+		complaints= complaintsDataBase.getComplaintList();
+		complaintsDataBase.closeDB();
+		complaintListAdapter=new ComplaintListAdapter(getApplicationContext(),0, complaints);
+		listViewComplaints.setAdapter(complaintListAdapter);
 	}
-
 }

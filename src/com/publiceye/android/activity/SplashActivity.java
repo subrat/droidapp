@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import com.publiceye.android.R;
 
 public class SplashActivity extends Activity {
-	private int SPLASH_DISPLAY_LENGHT = 3000;
+	private int SPLASH_DISPLAY_LENGHT = 1000;
 
 
 	@Override

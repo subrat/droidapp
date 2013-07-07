@@ -1,11 +1,12 @@
 package com.publiceye.android.activity;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -91,15 +92,36 @@ public class NewComplaintActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_submit:
-
-			ComplaintsDataBase complaintsDataBase = ComplaintsDataBase
-					.getComplaintsDataBase(getApplicationContext());
-			complaintsDataBase.openDB();
-			complaintsDataBase.insert(imgpath,textViewCompltNo.getText().toString() , 
-					textViewCompltStatus.getText().toString(),
-					textViewTime.getText().toString(),
-					editTextRegdNo.getText().toString().trim(), spinnerComplType.getSelectedItem().toString(), editTextRemarks.getText().toString().trim(),lat,lng);
-			complaintsDataBase.closeDB();
+			new AsyncTask<Void, Integer, Boolean>(){
+				ProgressDialog progressDialog;
+				@Override
+				protected Boolean doInBackground(Void... params) {
+					ComplaintsDataBase complaintsDataBase = ComplaintsDataBase
+							.getComplaintsDataBase(getApplicationContext());
+					complaintsDataBase.openDB();
+					complaintsDataBase.insert(imgpath,textViewCompltNo.getText().toString() , 
+							textViewCompltStatus.getText().toString(),
+							AppUtil.getTimeStamp(),
+							editTextRegdNo.getText().toString().trim(), spinnerComplType.getSelectedItem().toString(), editTextRemarks.getText().toString().trim(),lat,lng);
+					complaintsDataBase.closeDB();
+					return true;
+				}
+				protected void onPostExecute(Boolean result) {
+					super.onPostExecute(result);
+					progressDialog.cancel();
+					NewComplaintActivity.this.finish();
+				}
+				
+				protected void onPreExecute() {
+					super.onPreExecute();
+					progressDialog=new ProgressDialog(NewComplaintActivity.this);
+					progressDialog.setMessage("Saving..");
+					progressDialog.show();
+				}
+				
+			}.execute();
+			
+			
 			break;
 
 		case R.id.btn_back:

@@ -100,7 +100,6 @@ public class ComplaintsDataBase {
 			cursor.close();
 			return complients;
 		}
-		cursor.moveToFirst();
 
 		if (cursor != null) {
 			cursor.moveToFirst();

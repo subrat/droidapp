@@ -1,5 +1,8 @@
 package com.publiceye.android.provider;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
@@ -72,8 +75,8 @@ public class ComplaintListAdapter extends ArrayAdapter<Complaint> {
 		
 		textView_regdno.setText(complaint.getVehregNo());
 		textView_complntype.setText(complaint.getComplientType());
-		textView_time.setText(complaint.getTimeStamp());
-		
+		textView_time.setText(getDate(complaint.getTimeStamp()));
+		textView_complremarks.setText(complaint.getRemarks());
 		
 		return view;
 	}
@@ -109,5 +112,22 @@ public class ComplaintListAdapter extends ArrayAdapter<Complaint> {
 
 		unscaled.recycle();
 		return scaled;
+	}
+	public static String getDate(String dateStr) {
+
+		String date = " ";
+		if (dateStr.contains("T")) {
+			String[] s = dateStr.split("T");
+
+			try {
+				date = new SimpleDateFormat("dd/MM/yyyy").format((Date)new SimpleDateFormat("yyyy-MM-dd").parse(s[0]));
+				date = date+" "+new SimpleDateFormat("h:mm a").format((Date)new SimpleDateFormat("HH:mm:ss").parse(s[1]));
+
+			} catch (ParseException e) {
+				System.err.println("error");
+			}
+
+		}
+		return date;
 	}
 }
