@@ -67,7 +67,7 @@ public class ComplaintsDataBase {
 		cv.put(KEY_CMPLNT_STATUS, cmplnt_status);
 		cv.put(KEY_LAT, String.valueOf(lat));
 		cv.put(KEY_LNG, String.valueOf(lng));
-		cv.put(KEY_TIMESTAMP, "dvfav");
+		cv.put(KEY_TIMESTAMP, timestamp);
 		cv.put(KEY_VEH_REGNO , veh_regno);
 		cv.put(KEY_CMPLNT_TYPE, cmplnt_type);
 		cv.put(KEY_REMARKS, cmplnt_remarks);

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.publiceye.android.R;
@@ -25,6 +26,7 @@ public class ComplaintListActivity extends Activity {
 
 	private ListView listViewComplaints;
 	private Button mEyeButton;
+	private TextView textViewNodata;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	File file = null;
 	private ComplaintListAdapter complaintListAdapter;
@@ -33,13 +35,23 @@ public class ComplaintListActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_complaintdetails);
+		textViewNodata = (TextView) findViewById(android.R.id.empty);
 		listViewComplaints = (ListView) findViewById(android.R.id.list);
 		mEyeButton = (Button) findViewById(R.id.btn_eye);
+		listViewComplaints.setEmptyView(textViewNodata);
 		ComplaintsDataBase complaintsDataBase=ComplaintsDataBase.getComplaintsDataBase(getApplicationContext());
 		complaintsDataBase.openDB();
 		List<Complaint> complaints= complaintsDataBase.getComplaintList();
 		complaintsDataBase.closeDB();
 		complaintListAdapter=new ComplaintListAdapter(getApplicationContext(),0, complaints);
+		
+		/*if(complaintListAdapter.getCount() != 0){
+			textViewNodata.setVisibility(View.INVISIBLE);
+			listViewComplaints.setVisibility(View.VISIBLE);
+		}else {
+			textViewNodata.setVisibility(View.VISIBLE);
+			listViewComplaints.setVisibility(View.INVISIBLE);
+		}*/
 		listViewComplaints.setAdapter(complaintListAdapter);
 		appLocationManager=AppUtil.getAppLocationManager();
 
