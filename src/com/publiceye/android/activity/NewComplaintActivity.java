@@ -49,9 +49,9 @@ public class NewComplaintActivity extends Activity implements OnClickListener {
 		editTextRegdNo = (EditText) findViewById(R.id.editText_regno);
 		editTextRemarks = (EditText) findViewById(R.id.editText_remark);
 		
-		textViewTime.setText(AppUtil.getTimeStamp());
+		textViewTime.setText("Time: "+AppUtil.getTimeStamp());
 		textViewCompltStatus.setText("Active");
-		textViewCompltNo.setText(AppUtil.getComplaintNo());
+		textViewCompltNo.setText("Complaint No: "+AppUtil.getComplaintNo());
 		
 		
 		
