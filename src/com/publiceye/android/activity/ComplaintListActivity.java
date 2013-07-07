@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.publiceye.android.R;
 import com.publiceye.android.db.ComplaintsDataBase;
+import com.publiceye.android.location.AppLocationManager;
 import com.publiceye.android.model.Complaint;
 import com.publiceye.android.provider.ComplaintListAdapter;
 import com.publiceye.android.util.AppUtil;
@@ -27,6 +28,7 @@ public class ComplaintListActivity extends Activity {
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	File file = null;
 	private ComplaintListAdapter complaintListAdapter;
+	private AppLocationManager appLocationManager;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,27 +41,32 @@ public class ComplaintListActivity extends Activity {
 		complaintsDataBase.closeDB();
 		complaintListAdapter=new ComplaintListAdapter(getApplicationContext(),0, complaints);
 		listViewComplaints.setAdapter(complaintListAdapter);
-		
+		appLocationManager=AppUtil.getAppLocationManager();
 
 		mEyeButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 //				startActivity(new Intent(ComplaintListActivity.this,NewComplaintActivity.class));
-				
-				try {
-					if(AppUtil.isSdCardAvailable()){
-						file = new File(AppUtil.getAppDataDirectoryPath(),
-								"publiceye_"+AppUtil.getImgPathExtension()+ ".jpeg");
-						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-						intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-						startActivityForResult(intent,CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-					}else{
+				if(appLocationManager.areLocationProvidersEnabled(getApplicationContext())){
+					try {
+						if(AppUtil.isSdCardAvailable()){
+							file = new File(AppUtil.getAppDataDirectoryPath(),
+									"publiceye_"+AppUtil.getImgPathExtension()+ ".jpeg");
+							Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+							intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+							startActivityForResult(intent,CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+						}else{
+							showSdCardNotAvailable();
+						}
+					} catch (Exception e) {
 						showSdCardNotAvailable();
 					}
-				} catch (Exception e) {
-					showSdCardNotAvailable();
+				}else{
+					//ok
+					Toast.makeText(ComplaintListActivity.this,"GPS is not enabled", Toast.LENGTH_SHORT).show();
 				}
+				
 			}
 		});
 

@@ -31,7 +31,7 @@ public class NewComplaintActivity extends Activity implements OnClickListener {
 	private Spinner spinnerVechType,spinnerComplType;
 	private TextView textViewCompltNo, textViewCompltStatus,textViewLocLat, textViewLocLng,textViewTime;
 	private EditText editTextRegdNo, editTextRemarks;
-	
+	private double lat,lng;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,9 @@ public class NewComplaintActivity extends Activity implements OnClickListener {
 
 		appLocationManager = AppUtil.getAppLocationManager();
 		appLocationManager.getLocation(getApplicationContext(), locationResult);
+		
+		textViewLocLat.setText("Latitude: "+lat);
+		textViewLocLng.setText("Longitude: "+lng);
 		findViewById(R.id.btn_submit).setOnClickListener(this);
 		findViewById(R.id.btn_back).setOnClickListener(this);
 
@@ -95,7 +98,7 @@ public class NewComplaintActivity extends Activity implements OnClickListener {
 			complaintsDataBase.insert(imgpath,textViewCompltNo.getText().toString() , 
 					textViewCompltStatus.getText().toString(),
 					textViewTime.getText().toString(),
-					editTextRegdNo.getText().toString().trim(), spinnerComplType.getSelectedItem().toString(), editTextRemarks.getText().toString().trim());
+					editTextRegdNo.getText().toString().trim(), spinnerComplType.getSelectedItem().toString(), editTextRemarks.getText().toString().trim(),lat,lng);
 			complaintsDataBase.closeDB();
 			break;
 
@@ -115,7 +118,13 @@ public class NewComplaintActivity extends Activity implements OnClickListener {
 		@Override
 		public void gotLocation(Location location,
 				LocationManager locationManager) {
-
+			// Here we will get Latest location.
+			if(location!=null){
+				lat=location.getLatitude();
+				lng=location.getLongitude();
+				textViewLocLat.setText("Latitude: "+lat);
+				textViewLocLng.setText("Longitude: "+lng);
+			}
 		}
 	};
 }

@@ -60,13 +60,13 @@ public class ComplaintsDataBase {
 		database.close();
 	}
 
-	public void insert(String img_path, String cmplnt_no, String cmplnt_status,String timestamp,String veh_regno,String cmplnt_type,String cmplnt_remarks) {
+	public void insert(String img_path, String cmplnt_no, String cmplnt_status,String timestamp,String veh_regno,String cmplnt_type,String cmplnt_remarks,double lat,double lng) {
 		ContentValues cv = new ContentValues();
 		cv.put(KEY_IMG_PATH, img_path);
 		cv.put(KEY_CMPLNT_NUMBER, cmplnt_no);
 		cv.put(KEY_CMPLNT_STATUS, cmplnt_status);
-		cv.put(KEY_LAT, "0.0");
-		cv.put(KEY_LNG, "0.0");
+		cv.put(KEY_LAT, String.valueOf(lat));
+		cv.put(KEY_LNG, String.valueOf(lng));
 		cv.put(KEY_TIMESTAMP, "dvfav");
 		cv.put(KEY_VEH_REGNO , veh_regno);
 		cv.put(KEY_CMPLNT_TYPE, cmplnt_type);
